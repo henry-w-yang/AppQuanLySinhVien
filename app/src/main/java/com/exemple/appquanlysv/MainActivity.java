@@ -19,14 +19,15 @@ import java.security.PublicKey;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String DATABASE_NAME ="QUANLYSINHVIEN.db" ;
-    EditText editHoten,edtNS,edtLop;
-    RadioButton rdNam,rdNu;
-    CheckBox cbDocSach,cbTheThao,cbDuLich;
-    Button btNhap,btNhapLai;
+    private static final String DATABASE_NAME = "QUANLYSINHVIEN.db";
+    EditText editHoten, edtNS, edtLop;
+    RadioButton rdNam, rdNu;
+    CheckBox cbDocSach, cbTheThao, cbDuLich;
+    Button btNhap, btNhapLai;
     SinhVienDatabase database;
     SQLiteDatabase db;
     ImageButton imgDanhsasch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         imgDanhsasch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,DanhSachSV.class));
+                startActivity(new Intent(MainActivity.this, DanhSachSV.class));
             }
         });
 
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    public void Nhap(){
+
+    public void Nhap() {
         btNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,70 +92,25 @@ public class MainActivity extends AppCompatActivity {
                 String Lop = edtLop.getText().toString();
 
 
-                if (rdNu.isChecked())
-                {
-                    gTinh= 1 ;
+                if (rdNu.isChecked()) {
+                    gTinh = 1;
                 }
-                if (cbTheThao.isChecked())
-                {
-                    soThich+=","+cbTheThao.getText().toString();
+                if (cbTheThao.isChecked()) {
+                    soThich += "," + cbTheThao.getText().toString();
                 }
-                if (cbDuLich.isChecked())
-                {
-                    soThich+=","+cbDuLich.getText().toString();
+                if (cbDuLich.isChecked()) {
+                    soThich += "," + cbDuLich.getText().toString();
                 }
-                if (cbDocSach.isChecked())
-                {
-                    soThich+=","+cbDocSach.getText().toString();
+                if (cbDocSach.isChecked()) {
+                    soThich += "," + cbDocSach.getText().toString();
                 }
-                SinhVien sv = new SinhVien(hoTen, NamSinh,Lop, gTinh,soThich);
-                if (sv!=null){
+                SinhVien sv = new SinhVien(hoTen, NamSinh, Lop, gTinh, soThich);
+                if (sv != null) {
                     database.ThemSinhVien(sv);
-                    Toast.makeText(MainActivity.this,"Bạn Đã thêm thành công!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Bạn Đã thêm thành công!", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
-
-
-// bắt sự kiện từ bên DanhSachSV Buntton sửa
-    private void initUI() {
-        Intent intent = getIntent();
-        int id = intent.getIntExtra("id",-1); // nhận id
-// thực hiện mở file và đọc
-        db = Database.initDatabase(this,DATABASE_NAME);
-        Cursor cursor = db.rawQuery("SELECT * FROM SINHVIEN WHERE ID = ? ",new String[]{id + "",});
-        cursor.moveToFirst(); // di chuyển ccon trỏ đến vt đầu
-
-        // con trỏ chỏ đến cột 0,1,2,3,4,5 của hàng này
-        String ten = cursor.getString(1);
-        String lop = cursor.getString(3);
-        int gioitinh = cursor.getInt(4);
-        String namsinh = cursor.getString(2);
-        String sothich = cursor.getString(5);
-
-        // load dữ liệu cũ ra
-        editHoten.setText(ten);
-        edtLop.setText(lop);
-        edtNS.setText(namsinh);
-        if (gioitinh==1)
-        {
-            rdNu.setChecked(true);
-            rdNam.setChecked(false);
-        }
-        else
-        {
-            rdNu.setChecked(false);
-            rdNam.setChecked(true);
-        }
-
-        if (sothich.equalsIgnoreCase("Thể thao")==true)
-            cbTheThao.setChecked(true);
-        if (sothich.equalsIgnoreCase("Đọc sách")==true)
-            cbTheThao.setChecked(true);
-        if (sothich.equalsIgnoreCase("Du Lịch")==true)
-            cbTheThao.setChecked(true);
-
-    }
-
 }
+

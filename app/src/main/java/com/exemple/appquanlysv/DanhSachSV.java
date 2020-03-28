@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,10 +24,10 @@ public class DanhSachSV extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_sach_sv);
 //
-//        database = Database.initDatabase(this,DATABASE_NAME);
-//        Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
-//        cursor.moveToFirst();
-//        Toast.makeText(this,cursor.getString(1),Toast.LENGTH_LONG).show();show
+        database = Database.initDatabase(this,DATABASE_NAME);
+        Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
+        cursor.moveToFirst();
+//        Toast.makeText(this,cursor.getString(1),Toast.LENGTH_LONG).show();
         addControl();
         readData();
     }
@@ -44,7 +45,8 @@ public class DanhSachSV extends AppCompatActivity {
         database = Database.initDatabase(this,DATABASE_NAME);
         Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
         cursor.moveToFirst();
-        Toast.makeText(this,cursor.getString(1),Toast.LENGTH_LONG).show();
+        Log.e("Ten",cursor.getString(1));
+//        Toast.makeText(this,cursor.getString(1),Toast.LENGTH_LONG).show();
         for (int i = 0 ; i < cursor.getCount() ; i++)
         {
             cursor.moveToPosition(i);

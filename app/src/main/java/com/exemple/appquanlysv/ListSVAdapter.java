@@ -77,36 +77,36 @@ public class ListSVAdapter extends BaseAdapter {
         sua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mycontext,MainActivity.class);
+                Intent intent = new Intent(mycontext,SuaThongTin.class);
                 intent.putExtra("id",sinhVien.id);
                 mycontext.startActivity(intent);
             }
         });
         // bắt sự kiện xoá
-//        xoa.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(mycontext);
-//                builder.setTitle("Xác nhận xoá");
-//                builder.setMessage("Bạn có chắc chắc xoá Sinh Viên này ? ");
-//                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        delete(sinhVien.id);
-//                    }
-//
-//
-//                });
-//                builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-//            }
-//        });
+        xoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mycontext);
+                builder.setTitle("Xác nhận xoá");
+                builder.setMessage("Bạn có chắc chắc xoá Sinh Viên này ? ");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        delete(sinhVien.id);
+                    }
+
+
+                });
+                builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
 
         return v;// trả về view cho list bên màn hinh ActivityMain
@@ -127,8 +127,7 @@ public class ListSVAdapter extends BaseAdapter {
             int gioitinh = cursor.getInt(4);
             String namsinh = cursor.getString(2);
             String sothich = cursor.getString(5);
-
-//            sinhVienList.add(int id,String ten,String lop,int gioitinh,String namsinh,String sothich);
+//            sinhVienList.add(id,ten,lop,gioitinh,namsinh,sothich);
         }
         notifyDataSetChanged();
     }
