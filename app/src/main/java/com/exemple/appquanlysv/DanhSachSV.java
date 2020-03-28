@@ -40,6 +40,7 @@ public class DanhSachSV extends AppCompatActivity {
     }
     public void readData()
     {
+        // đọc dữ liệu trong database
         database = Database.initDatabase(this,DATABASE_NAME);
         Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
         cursor.moveToFirst();

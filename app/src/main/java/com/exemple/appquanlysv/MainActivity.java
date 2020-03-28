@@ -116,20 +116,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+// bắt sự kiện từ bên DanhSachSV Buntton sửa
     private void initUI() {
         Intent intent = getIntent();
-        int id = intent.getIntExtra("id",-1);
-
+        int id = intent.getIntExtra("id",-1); // nhận id
+// thực hiện mở file và đọc
         db = Database.initDatabase(this,DATABASE_NAME);
         Cursor cursor = db.rawQuery("SELECT * FROM SINHVIEN ID = ? ",new String[]{id + "",});
-        cursor.moveToFirst();
+        cursor.moveToFirst(); // di chuyển ccon trỏ đến vt đầu
+
+        // con trỏ chỏ đến cột 0,1,2,3,4,5 của hàng này
         String ten = cursor.getString(1);
         String lop = cursor.getString(3);
         int gioitinh = cursor.getInt(4);
         String namsinh = cursor.getString(2);
         String sothich = cursor.getString(5);
 
+        // load dữ liệu cũ ra
         editHoten.setText(ten);
         edtLop.setText(lop);
         edtNS.setText(namsinh);

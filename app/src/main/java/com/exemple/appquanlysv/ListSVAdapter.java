@@ -47,12 +47,15 @@ public class ListSVAdapter extends BaseAdapter {
     @Override
 
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        // trả về LAYOUT INfater cho cái màn hình này
         LayoutInflater inflater = (LayoutInflater) mycontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.sv_items,null);
 
         TextView tvTen,tvSothich,tvNamSinh,tvGioiTinh,tvLop;
         ImageButton sua,xoa;
 
+        // ánh xạ
         tvTen = convertView.findViewById(R.id.tensv);
         tvGioiTinh = convertView.findViewById(R.id.gioitinh);
         tvLop = convertView.findViewById(R.id.lop);
@@ -70,6 +73,7 @@ public class ListSVAdapter extends BaseAdapter {
         tvSothich.setText(sinhVien.soThich);
         tvNamSinh.setText(sinhVien.namsinh);
 
+        // bắt sự kiện cuar item sinhvien
         sua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +82,7 @@ public class ListSVAdapter extends BaseAdapter {
                 mycontext.startActivity(intent);
             }
         });
+        // bắt sự kiện xoá
         xoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,9 +111,11 @@ public class ListSVAdapter extends BaseAdapter {
 
         return v;
     }
+    // Xoá Sinh viên
     private void delete(int idSinhVien) {
         SQLiteDatabase database = Database.initDatabase((Activity) mycontext,"QUANLYSINHVIEN.db");
         database.delete("SINHVIEN","ID = ? ",new String[]{idSinhVien +""});
+        // đấu hoit chấm là cấu trúc lẹnh rawQuery, bên trái có bao nhiêu dấu ? thì bên phải có bấy nhiêu phần tử
 
         Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
         while ((cursor.moveToNext()))
