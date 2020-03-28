@@ -27,7 +27,7 @@ public class SinhVienDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String sql = "CREATE TABLE IF NOT EXISTS SV(ID PRIMARY KEY AUTOINCREMENT, TEN text,NAMSINH text,LOP text,GIOITINH integer,SOTHICH text)";
+        String sql = "CREATE TABLE IF NOT EXISTS SV(ID INTEGER PRIMARY KEY AUTOINCREMENT, TEN text,NAMSINH text,LOP text,GIOITINH integer,SOTHICH text)";
         db.execSQL(sql);
     }
 

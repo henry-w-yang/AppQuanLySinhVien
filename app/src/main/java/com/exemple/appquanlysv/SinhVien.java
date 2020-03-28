@@ -7,24 +7,27 @@ public class SinhVien {
     String Ten;
     String namsinh;
     String Lop;
-    String soThich;
-    int gioitinh;
 
-    public SinhVien(int id, String ten, String namsinh, String lop, int gioitinh, String soThich) {
+    int gioitinh;
+    String soThich;
+
+    public SinhVien(int id, String ten, String namsinh,String lop,  int gioitinh, String soThich) {
         this.id = id;
         this.Ten = ten;
         this.namsinh = namsinh;
         this.Lop = lop;
-        this.soThich = soThich;
         this.gioitinh = gioitinh;
+        this.soThich = soThich;
+
     }
 
     public SinhVien(String ten, String namsinh, String lop, int gioitinh, String soThich) {
         this.Ten = ten;
         this.namsinh = namsinh;
         this.Lop = lop;
-        this.soThich = soThich;
+
         this.gioitinh = gioitinh;
+        this.soThich = soThich;
     }
 
     public int getId() {

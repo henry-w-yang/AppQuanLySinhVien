@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         NhapLai();
         Nhap();
-        initUI();
+//        initUI();
         imgDanhsasch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         int id = intent.getIntExtra("id",-1); // nhận id
 // thực hiện mở file và đọc
         db = Database.initDatabase(this,DATABASE_NAME);
-        Cursor cursor = db.rawQuery("SELECT * FROM SINHVIEN ID = ? ",new String[]{id + "",});
+        Cursor cursor = db.rawQuery("SELECT * FROM SINHVIEN WHERE ID = ? ",new String[]{id + "",});
         cursor.moveToFirst(); // di chuyển ccon trỏ đến vt đầu
 
         // con trỏ chỏ đến cột 0,1,2,3,4,5 của hàng này

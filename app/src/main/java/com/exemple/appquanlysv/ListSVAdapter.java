@@ -83,36 +83,37 @@ public class ListSVAdapter extends BaseAdapter {
             }
         });
         // bắt sự kiện xoá
-        xoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mycontext);
-                builder.setTitle("Xác nhận xoá");
-                builder.setMessage("Bạn có chắc chắc xoá Sinh Viên này ? ");
-                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        delete(sinhVien.id);
-                    }
+//        xoa.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(mycontext);
+//                builder.setTitle("Xác nhận xoá");
+//                builder.setMessage("Bạn có chắc chắc xoá Sinh Viên này ? ");
+//                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        delete(sinhVien.id);
+//                    }
+//
+//
+//                });
+//                builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
+//            }
+//        });
 
 
-                });
-                builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
-
-
-        return v;
+        return v;// trả về view cho list bên màn hinh ActivityMain
     }
     // Xoá Sinh viên
     private void delete(int idSinhVien) {
+        //đọc database
         SQLiteDatabase database = Database.initDatabase((Activity) mycontext,"QUANLYSINHVIEN.db");
         database.delete("SINHVIEN","ID = ? ",new String[]{idSinhVien +""});
         // đấu hoit chấm là cấu trúc lẹnh rawQuery, bên trái có bao nhiêu dấu ? thì bên phải có bấy nhiêu phần tử
@@ -127,7 +128,7 @@ public class ListSVAdapter extends BaseAdapter {
             String namsinh = cursor.getString(2);
             String sothich = cursor.getString(5);
 
-            sinhVienList.add(id,ten,lop,gioitinh,namsinh,sothich);
+//            sinhVienList.add(int id,String ten,String lop,int gioitinh,String namsinh,String sothich);
         }
         notifyDataSetChanged();
     }
