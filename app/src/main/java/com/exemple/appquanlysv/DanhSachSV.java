@@ -18,23 +18,25 @@ public class DanhSachSV extends AppCompatActivity {
     ListView listView;
     ArrayList<SinhVien> list;
     ListSVAdapter adapter;
-    private static final String DATABASE_NAME = "QUANLYSINHVIEN.db";
+    private static final String DATABASE_NAME = "QUANLYSINHVIEN.sqlite";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_sach_sv);
 //
-        database = Database.initDatabase(this,DATABASE_NAME);
-        Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
-        cursor.moveToFirst();
+//        database = Database.initDatabase(this,DATABASE_NAME);
+//        Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
+//        cursor.moveToFirst();
 //        Toast.makeText(this,cursor.getString(1),Toast.LENGTH_LONG).show();
         addControl();
-        readData();
+
     }
 
     private void addControl() {
     listView = findViewById(R.id.listView);
     list = new ArrayList<>();
+    readData();
     adapter = new ListSVAdapter(this,R.layout.sv_items,list);
     listView.setAdapter(adapter);
 
@@ -42,24 +44,23 @@ public class DanhSachSV extends AppCompatActivity {
     public void readData()
     {
         // đọc dữ liệu trong database
-        database = Database.initDatabase(this,DATABASE_NAME);
+        database = Database.initDatabase(this,"QUANLYSINHVIEN.sqlite");
         Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
-        cursor.moveToFirst();
-        Log.e("Ten",cursor.getString(1));
-//        Toast.makeText(this,cursor.getString(1),Toast.LENGTH_LONG).show();
-        for (int i = 0 ; i < cursor.getCount() ; i++)
+
+        while (cursor.moveToNext())
         {
-            cursor.moveToPosition(i);
             int id = cursor.getInt(0);
             String ten = cursor.getString(1);
             String namsinh = cursor.getString(2);
             String lop = cursor.getString(3);
-            String sothich = cursor.getString(4);
-            int gioitinh = cursor.getInt(5);
-
+            String sothich = cursor.getString(5);
+            int gioitinh = cursor.getInt(4);
             list.add(new SinhVien(ten,lop,namsinh,gioitinh,sothich));
 
+            Log.e("ten",ten);
         }
-        adapter.notifyDataSetChanged();
+        database.close();
+        cursor.close();
+//        adapter.notifyDataSetChanged();
     }
 }

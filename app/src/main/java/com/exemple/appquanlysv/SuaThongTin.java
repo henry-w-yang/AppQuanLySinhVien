@@ -14,7 +14,7 @@ import android.widget.RadioButton;
 
 public class SuaThongTin extends AppCompatActivity {
 
-    private static final String DATABASE_NAME = "QUANLYSINHVIEN.db" ;
+    private static final String DATABASE_NAME = "QUANLYSINHVIEN.sqlite" ;
 SQLiteDatabase database;
     EditText editHoten, edtNS, edtLop;
     RadioButton rdNam, rdNu;

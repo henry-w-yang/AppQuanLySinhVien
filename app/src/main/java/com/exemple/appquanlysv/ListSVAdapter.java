@@ -22,8 +22,7 @@ public class ListSVAdapter extends BaseAdapter {
     int myLayout;
     List<SinhVien> sinhVienList;
 
-    public ListSVAdapter(Context context,int layout,List<SinhVien> list)
-    {
+    public ListSVAdapter(Context context, int layout, List<SinhVien> list) {
         mycontext = context;
         myLayout = layout;
         sinhVienList = list;
@@ -48,42 +47,45 @@ public class ListSVAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // trả về LAYOUT INfater cho cái màn hình này
-        LayoutInflater inflater = (LayoutInflater) mycontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.sv_items,null);
+        viewHolder holder;
+        if (convertView==null){
+            holder = new viewHolder();
+            LayoutInflater inflater = (LayoutInflater) mycontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.sv_items,null);
 
-        TextView tvTen,tvSothich,tvNamSinh,tvGioiTinh,tvLop;
-        ImageButton sua,xoa;
-
-        // ánh xạ
-        tvTen = convertView.findViewById(R.id.tensv);
-        tvGioiTinh = convertView.findViewById(R.id.gioitinh);
-        tvLop = convertView.findViewById(R.id.lop);
-        tvNamSinh = convertView.findViewById(R.id.namsinh);
-        tvSothich = convertView.findViewById(R.id.sothich);
-
-        sua = convertView.findViewById(R.id.sua);
-        xoa = convertView.findViewById(R.id.xoa);
+            convertView.setTag(holder);
+        }
+        else
+        {
+            holder =(viewHolder) convertView.getTag();
+        }
 
         final SinhVien sinhVien = sinhVienList.get(position);
 
-        tvTen.setText(sinhVien.Ten);
-        tvGioiTinh.setText(sinhVien.gioitinh);
-        tvLop.setText(sinhVien.Lop);
-        tvSothich.setText(sinhVien.soThich);
-        tvNamSinh.setText(sinhVien.namsinh);
 
-        // bắt sự kiện cuar item sinhvien
-        sua.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mycontext,SuaThongTin.class);
-                intent.putExtra("id",sinhVien.id);
-                mycontext.startActivity(intent);
-            }
-        });
-        // bắt sự kiện xoá
-        xoa.setOnClickListener(new View.OnClickListener() {
+        if (sinhVien!=null)
+        {
+            holder.tvTen = convertView.findViewById(R.id.tensv);
+            holder.tvGioiTinh = convertView.findViewById(R.id.gioitinh);
+            holder.tvLop = convertView.findViewById(R.id.lop);
+            holder.tvNamSinh = convertView.findViewById(R.id.ngaysinh);
+            holder.tvSothich = convertView.findViewById(R.id.sothich);
+            holder.sua = convertView.findViewById(R.id.sua);
+            holder.xoa = convertView.findViewById(R.id.xoa);
+
+            holder.tvTen.setText(String.valueOf(sinhVien.Ten));
+            holder.tvGioiTinh.setText(String.valueOf(sinhVien.gioitinh));
+            if (sinhVien.getGioitinh()==1)
+                holder.tvGioiTinh.setText("Nu");
+            else holder.tvGioiTinh.setText("Nam");
+            holder.tvSothich.setText(String.valueOf(sinhVien.soThich));
+            holder.tvNamSinh.setText(String.valueOf(sinhVien.namsinh));
+
+
+
+        }
+
+        holder.xoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mycontext);
@@ -92,11 +94,12 @@ public class ListSVAdapter extends BaseAdapter {
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        delete(sinhVien.id);
+//                        delete(sinhVien.id);
                     }
-
-
                 });
+
+        // bắt sự kiện xoá
+
                 builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -108,27 +111,42 @@ public class ListSVAdapter extends BaseAdapter {
             }
         });
 
+        // bắt sự kiện cuar item sinhvien
+        holder.sua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mycontext, SuaThongTin.class);
+                intent.putExtra("id",sinhVien.getId());
+                mycontext.startActivity(intent);
+            }
+        });
 
-        return v;// trả về view cho list bên màn hinh ActivityMain
+
+        return convertView;// trả về view cho list bên màn hinh ActivityMain
+    }
+    public class viewHolder{
+
+        TextView tvTen, tvSothich, tvNamSinh, tvGioiTinh, tvLop;
+        ImageButton sua, xoa;
     }
     // Xoá Sinh viên
-    private void delete(int idSinhVien) {
-        //đọc database
-        SQLiteDatabase database = Database.initDatabase((Activity) mycontext,"QUANLYSINHVIEN.db");
-        database.delete("SINHVIEN","ID = ? ",new String[]{idSinhVien +""});
-        // đấu hoit chấm là cấu trúc lẹnh rawQuery, bên trái có bao nhiêu dấu ? thì bên phải có bấy nhiêu phần tử
-
-        Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
-        while ((cursor.moveToNext()))
-        {
-            int id = cursor.getInt(0);
-            String ten = cursor.getString(1);
-            String lop = cursor.getString(3);
-            int gioitinh = cursor.getInt(4);
-            String namsinh = cursor.getString(2);
-            String sothich = cursor.getString(5);
-//            sinhVienList.add(id,ten,lop,gioitinh,namsinh,sothich);
-        }
-        notifyDataSetChanged();
-    }
+//    private void delete(int idSinhVien) {
+//        //đọc database
+//        SQLiteDatabase database = Database.initDatabase((Activity) mycontext,"QUANLYSINHVIEN.sqlite");
+//        database.delete("SV","ID = ? ",new String[]{idSinhVien +""});
+//        // đấu hoit chấm là cấu trúc lẹnh rawQuery, bên trái có bao nhiêu dấu ? thì bên phải có bấy nhiêu phần tử
+//
+//        Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
+//        while ((cursor.moveToNext()))
+//        {
+//            int id = cursor.getInt(0);
+//            String ten = cursor.getString(1);
+//            String lop = cursor.getString(3);
+//            int gioitinh = cursor.getInt(4);
+//            String namsinh = cursor.getString(2);
+//            String sothich = cursor.getString(5);
+//            sinhVienList.add(ten,lop,gioitinh,namsinh,sothich);
+//        }
+//        notifyDataSetChanged();
+//    }
 }

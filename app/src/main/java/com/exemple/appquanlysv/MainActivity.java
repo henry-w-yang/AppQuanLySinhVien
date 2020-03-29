@@ -19,7 +19,7 @@ import java.security.PublicKey;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String DATABASE_NAME = "QUANLYSINHVIEN.db";
+    private static final String DATABASE_NAME = "QUANLYSINHVIEN.sqlite";
     EditText editHoten, edtNS, edtLop;
     RadioButton rdNam, rdNu;
     CheckBox cbDocSach, cbTheThao, cbDuLich;
@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         btNhap = findViewById(R.id.nhaplieu);
         btNhapLai = findViewById(R.id.nhaplai);
         imgDanhsasch = findViewById(R.id.dsSinhVien);
-
 
         database = new SinhVienDatabase(this);
 
@@ -106,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 SinhVien sv = new SinhVien(hoTen, NamSinh, Lop, gTinh, soThich);
                 if (sv != null) {
+
                     database.ThemSinhVien(sv);
                     Toast.makeText(MainActivity.this, "Bạn Đã thêm thành công!", Toast.LENGTH_LONG).show();
                 }

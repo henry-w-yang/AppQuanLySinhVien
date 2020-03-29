@@ -1,7 +1,9 @@
 package com.exemple.appquanlysv;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -9,11 +11,11 @@ import androidx.annotation.Nullable;
 
 public class SinhVienDatabase extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "QUANLYSINHVIEN.db";
+    private static final String DATABASE_NAME = "QUANLYSINHVIEN.sqlite";
     private static final String TABLE_NAME = "SINHVIEN";
     private static final String ID = "ID";
     private static final String TEN = "TEN";
-    private static final String NAMSINH = "TUOI";
+    private static final String NAMSINH = "NAMSINH";
     private static final String LOP = "LOP";
     private static final String GIOITINH = "GIOITINH";
     private static final String SOTHICH = "SOTHICH";

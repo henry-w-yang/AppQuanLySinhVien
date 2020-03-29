@@ -7,7 +7,6 @@ public class SinhVien {
     String Ten;
     String namsinh;
     String Lop;
-
     int gioitinh;
     String soThich;
 
@@ -25,7 +24,6 @@ public class SinhVien {
         this.Ten = ten;
         this.namsinh = namsinh;
         this.Lop = lop;
-
         this.gioitinh = gioitinh;
         this.soThich = soThich;
     }
