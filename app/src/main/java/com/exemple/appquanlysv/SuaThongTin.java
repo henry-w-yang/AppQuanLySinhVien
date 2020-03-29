@@ -28,6 +28,7 @@ SQLiteDatabase database;
         setContentView(R.layout.activity_sua_thong_tin);
 
         AnhXa();
+        initUI();
     }
 
     private void AnhXa() {

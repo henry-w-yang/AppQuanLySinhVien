@@ -24,11 +24,7 @@ public class DanhSachSV extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_sach_sv);
-//
-//        database = Database.initDatabase(this,DATABASE_NAME);
-//        Cursor cursor = database.rawQuery("SELECT * FROM SINHVIEN",null);
-//        cursor.moveToFirst();
-//        Toast.makeText(this,cursor.getString(1),Toast.LENGTH_LONG).show();
+
         addControl();
 
     }
